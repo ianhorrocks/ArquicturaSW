@@ -16,7 +16,7 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "mvc"
+	DBName := "carrito"
 	DBUser := "root"
 	//DBPass := ""
 	DBPass := "1234"
