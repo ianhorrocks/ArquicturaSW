@@ -41,5 +41,4 @@ func StartDbEngine() {
 	db.AutoMigrate(&model.User{})
 
 	log.Info("Finishing Migration Database Tables")
-	data.InsertData(db)
 }
