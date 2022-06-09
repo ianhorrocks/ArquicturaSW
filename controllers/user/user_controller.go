@@ -1,8 +1,8 @@
-package userController
+package controllers
 
 import (
-	"mvc-go/dto"
-	service "mvc-go/services"
+	dto "ArquicturaSW/dto"
+	service "ArquicturaSW/services"
 	"net/http"
 	"strconv"
 
@@ -36,34 +36,3 @@ func GetUsers(c *gin.Context) { // No recibe ningun parametro
 
 	c.JSON(http.StatusOK, usersDto)
 }
-
-func OrderInsert(c *gin.Context) {
-	//var orderDto dto.OrderDto
-}
-
-func UserInsert(c *gin.Context) {
-	var userDto dto.UserDto 
-	err := c.BindJSON(&userDto) // json que viene en el request (formulario) y lo convierte a userDto
-
-	// Error Parsing json param
-	if err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	userDto, er := service.UserService.InsertUser(userDto)
-	// Error del Insert
-	if er != nil {
-		c.JSON(er.Status(), er)
-		return
-	}
-
-	c.JSON(http.StatusCreated, userDto)
-}
-/*
-debug
-info
-error
-fatal
-crash*/ 

@@ -16,7 +16,8 @@ func init() { //palabra reservada que ejecuta cuando se compila
 func StartRoute() { // llama un metodo mapUrls
 	mapUrls()
 
-	log.Info("Starting server") // para comprobar que llegamos bien a conectar el servidor
+	log.Info("Starting server on :8090") // para comprobar que llegamos bien a conectar el servidor
 	router.Run(":8090")
+	
 
 }

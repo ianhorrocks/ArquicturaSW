@@ -1,8 +1,8 @@
 package db
 
 import (
-	userClient "mvc-go/clients/user"
-	"mvc-go/model"
+	userClient "ArquicturaSW/clients/user"
+	 "ArquicturaSW/model"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -41,4 +41,5 @@ func StartDbEngine() {
 	db.AutoMigrate(&model.User{})
 
 	log.Info("Finishing Migration Database Tables")
+	data.InsertData(db)
 }

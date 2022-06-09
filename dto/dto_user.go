@@ -1,11 +1,12 @@
 package dto
 
 type UserDto struct {
-	Name     string `json:"name"`
-	LastName string `json:"last_name"`
-	UserName string `json:"user_name"`
-	Password string `json:"password"`
-	Id       int    `json:"id"`
+	Id       	uint    `json:"id"`
+	Name   string `json:"name"`
+	LastName 	string `json:"last_name"`
+	Email	 	string `json:"email"`
+	UserName 	string `json:"user_name"`
+	Password 	string `json:"password"`
 }
 
 type UsersDto []UserDto

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"mvc-go/app"
-	"mvc-go/db"
+	"ArquicturaSW/app"
+	"ArquicturaSW/db"
 )
 
 func main() {
