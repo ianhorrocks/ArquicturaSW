@@ -1,8 +1,9 @@
 package db
 
 import (
-	userClient "ArquicturaSW/clients/user"
 	"ArquicturaSW/model"
+	userClient "ArquicturaSW/clients/user"
+	productClient "ArquicturaSW/clients/product"
 
 	data "ArquicturaSW/db/data"
 
@@ -38,11 +39,12 @@ func init() {
 
 	// We need to add all CLients that we build
 	userClient.Db = db
+	productClient.Db = db
 }
 
 func StartDbEngine() {
 	// We need to migrate all classes model.
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{}, &model.Product{})
 
 	log.Info("Finishing Migration Database Tables")
 	data.InsertData(db)

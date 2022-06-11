@@ -28,4 +28,3 @@ func GetUsers() model.Users { //GET todo los usuarios de la base de datos
 
 	return users 
 }
-
