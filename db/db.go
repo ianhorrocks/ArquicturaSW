@@ -2,7 +2,9 @@ package db
 
 import (
 	userClient "ArquicturaSW/clients/user"
-	 "ArquicturaSW/model"
+	"ArquicturaSW/model"
+
+	data "ArquicturaSW/db/data"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -25,6 +27,8 @@ func init() {
 
 	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
 
+	db.LogMode(true)
+
 	if err != nil {
 		log.Info("Connection Failed to Open")
 		log.Fatal(err)
@@ -41,4 +45,5 @@ func StartDbEngine() {
 	db.AutoMigrate(&model.User{})
 
 	log.Info("Finishing Migration Database Tables")
+	data.InsertData(db)
 }
