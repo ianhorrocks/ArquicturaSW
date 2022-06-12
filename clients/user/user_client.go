@@ -9,13 +9,14 @@ import (
 )
 
 var Db *gorm.DB
+
 //clases que insertan, buscan en el modelo de la bd
 
 func GetUserById(id int) model.User { //GET
 	var user model.User
 
-	Db.Where("id_user = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como 
-	log.Debug("User: ", user) //Objeto user con todos los datos seteados
+	Db.Where("id_user = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como
+	log.Debug("User: ", user)                //Objeto user con todos los datos seteados
 
 	return user
 }
@@ -26,5 +27,5 @@ func GetUsers() model.Users { //GET todo los usuarios de la base de datos
 
 	log.Debug("Users: ", users)
 
-	return users 
+	return users
 }
