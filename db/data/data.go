@@ -41,6 +41,16 @@ func InsertData(db *gorm.DB) {
 		db.Create(&model.Product{Name: "Lego Spidey", Description: "100 pcs", Price: 7990, Stock: 1})
 	}
 
+	err = db.First(&model.Address{}).Error
+
+	if err != nil {
+		db.Create(&model.Address{UserID: 1, State: "Cordoba", City: "Cordoba", Zip: 5000, Addressline: "Piamonte 3442"})
+		db.Create(&model.Address{UserID: 2, State: "Cordoba", City: "Cordoba", Zip: 5000, Addressline: "Hipolito Yrigoyen 2200"})
+		db.Create(&model.Address{UserID: 3, State: "Cordoba", City: "Cordoba", Zip: 5000, Addressline: "Recta Martinolli 2992"})
+		db.Create(&model.Address{UserID: 4, State: "Cordoba", City: "Cordoba", Zip: 5000, Addressline: "Ricardo Poincare 2222"})
+		db.Create(&model.Address{UserID: 5, State: "Cordoba", City: "Cordoba", Zip: 5000, Addressline: "Av. Velez Sarlfierd 8440"})
+	}
+
 	log.Info("Data inserted")
 
 }
