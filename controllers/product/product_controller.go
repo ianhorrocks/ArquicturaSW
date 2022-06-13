@@ -2,7 +2,7 @@ package controllers
 
 import (
 	dto "ArquicturaSW/dto"
-	service "ArquicturaSW/services"
+	service "ArquicturaSW/services/product"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
