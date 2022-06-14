@@ -21,7 +21,7 @@ func mapUrls() {
 	router.GET("/product", productController.GetProducts)
 	// Categories
 	router.GET("/category/:id", productController.GetCategoryById)
-	router.GET("/category", productController.GetCategories)
+	router.GET("/category", productController.GetCategories) //productos por categoria HACERLO
 	
 	// METODOS
 	// Login

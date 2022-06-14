@@ -59,3 +59,21 @@ func (s *userService) GetUsers() (dto.UsersDto, e.ApiError) {
 
 	return usersDto, nil
 }
+
+func (s *userService) GetByUsername(username string) (dto.UserDto, error) {
+
+	user, err := userCliente.GetByUsername(username)
+	var userDto dto.UserDto
+
+	if err != nil {
+		return userDto, err
+	}
+
+	userDto.Name = user.Name
+	userDto.LastName = user.LastName
+	userDto.UserName = user.UserName
+	userDto.Id = user.UserID
+	userDto.Email = user.Email
+	userDto.Password = user.Password
+	return userDto, nil
+}

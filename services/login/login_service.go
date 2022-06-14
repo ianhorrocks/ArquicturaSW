@@ -28,7 +28,7 @@ func (s *loginService) Login(login loginDto.LoginDto) (userDto.UserDto, error) {
 	username := login.Username
 	pass := login.Password
 	log.Debug("pass", pass)
-	user, err:= userCliente.GetUsername(username)
+	user, err:= userCliente.GetByUsername(username)
 	var userDto userDto.UserDto
 
 	if err != nil {

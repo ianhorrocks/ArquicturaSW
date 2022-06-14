@@ -8,9 +8,9 @@ import (
 
 func GetProductsBySearchParam(c *gin.Context) {
 
-	ref := c.Param("ref")
+	param := c.Param("param")
 
-	productsDto, err := service.SearchService.GetProductsBySearchParam(ref)
+	productsDto, err := service.SearchService.GetProductsBySearchParam(param)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, productsDto)

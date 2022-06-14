@@ -30,7 +30,7 @@ func GetUsers() model.Users { //GET todo los usuarios de la base de datos
 	return users
 }
 
-func GetUsername(username string) (model.User, error) {
+func GetByUsername(username string) (model.User, error) {
 	var user model.User
 
 	err := Db.Where("user_name = ?", username).First(&user).Error

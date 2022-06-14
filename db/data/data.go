@@ -13,11 +13,11 @@ func InsertData(db *gorm.DB) {
 	err := db.First(&model.User{}).Error
 
 	if err != nil {
-		db.Create(&model.User{Name: "Ian", LastName: "Horrocks", UserName: "ianho10", Email: "@ucc.edu.ar", Password: "12345"})
-		db.Create(&model.User{Name: "Nano", LastName: "Nallar", UserName: "nanonallar", Email: "qseyo@ucc.edu.ar", Password: "12345"})
-		db.Create(&model.User{Name: "Elian", LastName: "Stuyck", UserName: "elian123", Email: "qseyo@ucc.edu.ar", Password: "12345"})
-		db.Create(&model.User{Name: "Agus", LastName: "Ferrero", UserName: "agusferrero", Email: "qseyo@ucc.edu.ar", Password: "12345"})
-		db.Create(&model.User{Name: "Tomi", LastName: "Calvo", UserName: "tomicalvo", Email: "qseyo@ucc.edu.ar", Password: "12345"})
+		db.Create(&model.User{Name: "Ian", LastName: "Horrocks", UserName: "ianho10", Email: "@ucc.edu.ar", Password: "hola123"})
+		db.Create(&model.User{Name: "Nano", LastName: "Nallar", UserName: "nanonallar", Email: "qseyo@ucc.edu.ar", Password: "hola123"})
+		db.Create(&model.User{Name: "Elian", LastName: "Stuyck", UserName: "elian123", Email: "qseyo@ucc.edu.ar", Password: "hola123"})
+		db.Create(&model.User{Name: "Agus", LastName: "Ferrero", UserName: "agusferrero", Email: "qseyo@ucc.edu.ar", Password: "hola123"})
+		db.Create(&model.User{Name: "Tomi", LastName: "Calvo", UserName: "tomicalvo", Email: "qseyo@ucc.edu.ar", Password: "hola123"})
 	}
 
 	err = db.First(&model.Address{}).Error

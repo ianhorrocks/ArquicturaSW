@@ -25,7 +25,7 @@ func GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, userDto)
 }
 
-func GetUsers(c *gin.Context) { // No recibe ningun parametro
+func GetUsers(c *gin.Context) { 
 	var usersDto dto.UsersDto
 	usersDto, err := service.UserService.GetUsers()
 
