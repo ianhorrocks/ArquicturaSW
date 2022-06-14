@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
 # ArquicturaSW - Carrito de compras
-# El proyecto consiste en la creacion de un carrito  de compras web utilizando golang.
+### El proyecto consiste en la creacion de un carrito de compras web utilizando golang.
 
 ## Introducción 🧾
 
@@ -23,5 +22,5 @@ Backend: golang
 
 Database: Mysql 
 
->>>>>>> 7d3dfc1dbdd2a90f7f33e5cc10ef7fd78d5ae1fe
+// 7d3dfc1dbdd2a90f7f33e5cc10ef7fd78d5ae1fe
 
