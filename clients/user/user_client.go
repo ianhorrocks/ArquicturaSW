@@ -15,7 +15,7 @@ var Db *gorm.DB
 func GetUserById(id int) model.User { //GET
 	var user model.User
 
-	Db.Where("id_user = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como
+	Db.Where("user_id = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como
 	log.Debug("User: ", user)                //Objeto user con todos los datos seteados
 
 	return user

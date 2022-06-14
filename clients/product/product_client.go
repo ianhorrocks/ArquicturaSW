@@ -9,6 +9,20 @@ import (
 
 var Db *gorm.DB
 
+func GetProductById(id int) (model.Product, error) {
+	var product model.Product
+
+	err := Db.Where("product_id = ?", id).First(&product).Error
+	log.Debug("Product: ", product)
+
+	if err != nil {
+		log.Println(err)
+		return product, err
+	}
+
+	return product, err
+}
+
 func GetProducts() (model.Products, error) {
 	var products model.Products
 
