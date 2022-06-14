@@ -50,7 +50,6 @@ func init() {
 func StartDbEngine() {
 	// We need to migrate all classes model.
 	db.AutoMigrate(&model.User{}, &model.Product{}, &model.Category{}, &model.Address{}, )
-
 	log.Info("Finishing Migration Database Tables")
 	data.InsertData(db)
 }

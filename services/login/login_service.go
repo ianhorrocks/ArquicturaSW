@@ -1,10 +1,10 @@
 package services
 
 import (
-	userDto "ArquicturaSW/dto"
-	model "ArquicturaSW/model"
-	loginDto "ArquicturaSW/dto"
 	userCliente "ArquicturaSW/clients/user"
+	loginDto "ArquicturaSW/dto"
+	userDto "ArquicturaSW/dto"
+	"errors"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -12,7 +12,7 @@ import (
 type loginService struct{}
 
 type loginServiceInterface interface {
-	Login(loginDto.LoginDto) userDto.UserDto
+	Login(loginDto.LoginDto) (userDto.UserDto, error)
 }
 
 var (
@@ -23,20 +23,23 @@ func init() {
 	LoginService = &loginService{}
 }
 
-func (s *loginService) Login(login loginDto.LoginDto) userDto.UserDto {
+func (s *loginService) Login(login loginDto.LoginDto) (userDto.UserDto, error) {
 
-	id := login.Id
+	username := login.Username
 	pass := login.Password
 	log.Debug("pass", pass)
-	var user model.User = userCliente.GetUserById(id)
+	user, err:= userCliente.GetUsername(username)
 	var userDto userDto.UserDto
 
-	if user.UserID == 0 {
-		return userDto
+	if err != nil {
+		log.Println(err)
+		return userDto, err
 	}
 
 	if user.Password != pass {
-		return userDto
+		err = errors.New("Credenciales incorrectas")
+		log.Println(err)
+		return userDto, err
 	}
 
 	userDto.Name = user.Name
@@ -46,6 +49,6 @@ func (s *loginService) Login(login loginDto.LoginDto) userDto.UserDto {
 	userDto.Email = user.Email
 	userDto.Password = user.Password
 
-	return userDto
+	return userDto, nil
 
 }

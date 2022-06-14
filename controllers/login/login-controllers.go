@@ -12,17 +12,22 @@ import (
 
 func Login(c *gin.Context) {
 	var loginDto dto.LoginDto
-	err := c.BindJSON(&loginDto)
+	cred := c.BindJSON(&loginDto)
 
 	// Error Parsing json param
-	if err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err.Error())
+	if cred != nil {
+		log.Error(cred.Error())
+		c.JSON(http.StatusBadRequest, cred.Error())
 		return
 	}
 
-	userDto := service.LoginService.Login(loginDto)
+	userDto, err := service.LoginService.Login(loginDto)
 	// Error del Insert
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, userDto)
+		return
+	}
 
 	c.JSON(http.StatusCreated, userDto)
 }
