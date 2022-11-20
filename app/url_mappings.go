@@ -4,7 +4,6 @@ import (
 	//productController "ArquicturaSW/controllers/product"
 	userController "ArquicturaSW/controllers/user"
 	productController "ArquicturaSW/controllers/product" //igual para category.controller
-	loginController "ArquicturaSW/controllers/login"
 	searchController "ArquicturaSW/controllers/search"
 
 
@@ -15,7 +14,7 @@ func mapUrls() {
 
 	// Users
 	router.GET("/user/:id", userController.GetUserById)
-	router.GET("/user", userController.GetUsers)
+	//router.GET("/user", userController.GetUsers)
 	// Products
 	router.GET("/product/:id", productController.GetProductById)
 	router.GET("/product", productController.GetProducts)
@@ -25,7 +24,6 @@ func mapUrls() {
 	
 	// METODOS
 	// Login
-	router.POST("/login", loginController.Login)
 	// Search
 	router.GET("/search/:param", searchController.GetProductsBySearchParam)
 

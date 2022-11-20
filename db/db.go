@@ -2,10 +2,9 @@ package db
 
 import (
 	"ArquicturaSW/model"
-	addressClient "ArquicturaSW/clients/address"
 	userClient "ArquicturaSW/clients/user"
 	productClient "ArquicturaSW/clients/product"
-	searchClient "ArquicturaSW/clients/search"
+	
 
 	data "ArquicturaSW/db/data"
 
@@ -42,14 +41,12 @@ func init() {
 	// We need to add all CLients that we build
 	userClient.Db = db
 	productClient.Db = db
-	addressClient.Db = db
-	searchClient.Db = db
 	
 }
 
 func StartDbEngine() {
 	// We need to migrate all classes model.
-	db.AutoMigrate(&model.User{}, &model.Product{}, &model.Category{}, &model.Address{}, )
+	db.AutoMigrate(&model.User{}, &model.Product{}, &model.Category{})
 	log.Info("Finishing Migration Database Tables")
 	data.InsertData(db)
 }

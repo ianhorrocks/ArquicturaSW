@@ -1,16 +1,14 @@
 package model
 
 import (
-
-	"github.com/jinzhu/gorm"
+	"time"
 )
 
 type Order struct {
-	gorm.Model
-	UserID       uint
-	Amount       float64 `gorm:"type:decimal(10,2);not null"`
-	User         User
-	OrderDetails OrderDetails
+	OrderID int      `gorm:"primaryKey"`
+	Amount  float64   `gorm:"type:decimal(10,2);not null"`
+	Fecha   time.Time `gorm:"not null"`
+	UserID  int      `gorm:"type:integer;not null"`
 }
 
 type Orders []Order

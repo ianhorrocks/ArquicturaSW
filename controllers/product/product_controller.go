@@ -1,16 +1,17 @@
-package controllers
+package productController
 
 import (
 	dto "ArquicturaSW/dto"
 	service "ArquicturaSW/services/product"
 	"net/http"
 	"strconv"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/gin-gonic/gin"
 )
 
 func GetProductById(c *gin.Context) {
-	log.Debug("User id to load: " + c.Param("id"))
+	log.Debug("Product id to load: " + c.Param("id"))
 
 	id, _ := strconv.Atoi(c.Param("id"))
 	productDto, err := service.ProductService.GetProductById(id)

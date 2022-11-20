@@ -1,7 +1,7 @@
 package model
 
 type Category struct {
-	CategoryID uint   `gorm:"primary_key"`  //1 electronica
+	CategoryID int   `gorm:"primary_key"`  //1 electronica
 	Name       string `gorm:"type:varchar(255);not null"`
 }
 

@@ -1,4 +1,4 @@
-package clients
+package product
 
 import (
 	"ArquicturaSW/model"
@@ -9,29 +9,20 @@ import (
 
 var Db *gorm.DB
 
-func GetProductById(id int) (model.Product, error) {
+func GetProductById(id int) model.Product{
 	var product model.Product
 
-	err := Db.Where("product_id = ?", id).First(&product).Error
+	Db.Where("id = ?", id).First(&product)
 	log.Debug("Product: ", product)
 
-	if err != nil {
-		log.Println(err)
-		return product, err
-	}
-
-	return product, err
+	return product
 }
 
-func GetProducts() (model.Products, error) {
+func GetProducts() model.Products {
 	var products model.Products
 
-	err := Db.Find(&products).Error
+	Db.Find(&products)
+	log.Debug("Products: ", products)
 
-	if err != nil {
-		log.Println(err)
-		return products, err
-	}
-
-	return products, err
+	return products
 }

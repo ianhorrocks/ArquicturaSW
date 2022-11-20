@@ -3,14 +3,15 @@ package services
 import (
 	productCliente "ArquicturaSW/clients/product"
 	"ArquicturaSW/dto"
+	"ArquicturaSW/model"
+	e "ArquicturaSW/utils/errors"
 )
 
 type productService struct{}
 
-// ACA EL SERVICE SE COMUNICA CON EL MODEL(BUSINESS CLASSES) Y CONTROLLER(DTOs)
 type productServiceInterface interface { //nombre del metodo, que .. todo lo que va a devolver mi servicio es en DTO (ej: product)
-	GetProductById(id int) (dto.ProductDto, error)
-	GetProducts() (dto.ProductsDto, error)
+	GetProductById(id int) (dto.ProductDto, e.ApiError)
+	GetProducts() (dto.ProductsDto, e.ApiError)
 }
 
 var (
@@ -21,13 +22,13 @@ func init() {
 	ProductService = &productService{}
 }
 
-func (s *productService) GetProductById(id int) (dto.ProductDto, error) {
+func (s *productService) GetProductById(id int) (dto.ProductDto, e.ApiError) {
 
-	product, err := productCliente.GetProductById(id)
+	var product model.Product = productCliente.GetProductById(id)
 	var productDto dto.ProductDto
 
-	if err != nil {
-		return productDto, err
+	if product.ProductID == 0 {
+		return productDto, e.NewBadRequestApiError("Product not found")
 	}
 
 	productDto.Id = product.ProductID
@@ -36,27 +37,28 @@ func (s *productService) GetProductById(id int) (dto.ProductDto, error) {
 	productDto.Price = product.Price
 	productDto.Stock = product.Stock
 
-	return productDto, err
+	return productDto, nil
 }
-func (s *productService) GetProducts() (dto.ProductsDto, error) {
+func (s *productService) GetProducts() (dto.ProductsDto, e.ApiError) {
 
-	products, err := productCliente.GetProducts()
+	var products model.Products = productCliente.GetProducts()
 	var productsDto dto.ProductsDto
 
-	if err != nil {
-		return productsDto, err
+	if len(products) == 0 {
+		return productsDto, e.NewBadRequestApiError("Products not found")
 	}
-
 	for _, product := range products {
 		var productDto dto.ProductDto
 		productDto.Id = product.ProductID
 		productDto.Name = product.Name
 		productDto.Description = product.Description
+		productDto.Picture = product.Picture
 		productDto.Price = product.Price
 		productDto.Stock = product.Stock
+		productDto.IdCategory = product.CategoryID
 
 		productsDto = append(productsDto, productDto)
 	}
 
-	return productsDto, err
+	return productsDto, nil
 }

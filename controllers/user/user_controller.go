@@ -1,7 +1,7 @@
-package controllers
+package userController
 
 import (
-	dto "ArquicturaSW/dto"
+	"ArquicturaSW/dto"
 	service "ArquicturaSW/services/user"
 	"net/http"
 	"strconv"
@@ -25,14 +25,21 @@ func GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, userDto)
 }
 
-func GetUsers(c *gin.Context) { 
-	var usersDto dto.UsersDto
-	usersDto, err := service.UserService.GetUsers()
+func UserLogin(c *gin.Context) {
+	var loginDto dto.LoginDto
+	err := c.BindJSON(&loginDto)
 
 	if err != nil {
-		c.JSON(err.Status(), err)
+		log.Error(err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
+	tokenDto, er := service.UserService.LoginUser(loginDto)
 
-	c.JSON(http.StatusOK, usersDto)
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+	c.JSON(http.StatusCreated, tokenDto)
+
 }

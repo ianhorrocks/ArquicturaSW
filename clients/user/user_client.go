@@ -21,6 +21,16 @@ func GetUserById(id int) model.User { //GET
 	return user
 }
 
+func GetByUsername(username string) model.User { //lo usamos en el login
+	var user model.User
+
+	Db.Where("user_name = ?", username).First(&user)
+	log.Debug("User: ", user)
+
+	return user
+}
+
+/*
 func GetUsers() model.Users { //GET todo los usuarios de la base de datos
 	var users model.Users
 	Db.Find(&users) // Le pasa por referencia un puntero que acaba de crear
@@ -29,17 +39,4 @@ func GetUsers() model.Users { //GET todo los usuarios de la base de datos
 
 	return users
 }
-
-func GetByUsername(username string) (model.User, error) {
-	var user model.User
-
-	err := Db.Where("user_name = ?", username).First(&user).Error
-
-	if err != nil {
-		log.Println(err)
-		return user, nil
-	}
-	log.Debug("User: ", user)
-
-	return user, nil
-}
+*/
