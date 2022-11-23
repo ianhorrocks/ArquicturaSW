@@ -2,7 +2,7 @@ package categoryController
 
 import (
 	"ArquicturaSW/dto"
-	service "ArquicturaSW/services/category"
+	service "ArquicturaSW/services"
 	"net/http"
 	_ "strconv"
 

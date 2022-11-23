@@ -26,3 +26,21 @@ func GetProducts() model.Products {
 
 	return products
 }
+
+func GetProductsByText(text string) model.Products {
+	var products model.Products
+
+	Db.Where("name LIKE ?", "%"+text+"%").Find(&products)
+	log.Debug("Products: ", products)
+
+	return products
+}
+
+func GetProductsByCategory(categoryId int) model.Products {
+	var products model.Products
+
+	Db.Where("id_category = ?", categoryId).Find(&products)
+	log.Debug("Products: ", products)
+
+	return products
+}

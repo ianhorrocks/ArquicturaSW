@@ -15,7 +15,7 @@ var Db *gorm.DB
 func GetUserById(id int) model.User { //GET
 	var user model.User
 
-	Db.Where("user_id = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como
+	Db.Where("id = ?", id).First(&user) //Se transforma en un SQL y toma el primer registro. Todo eso lo hace la ORM. Db esta seteado en la linea 10. Ya vamos aprender como
 	log.Debug("User: ", user)                //Objeto user con todos los datos seteados
 
 	return user
@@ -24,7 +24,7 @@ func GetUserById(id int) model.User { //GET
 func GetByUsername(username string) model.User { //lo usamos en el login
 	var user model.User
 
-	Db.Where("user_name = ?", username).First(&user)
+	Db.Where("id = ?", username).First(&user)
 	log.Debug("User: ", user)
 
 	return user

@@ -4,9 +4,9 @@ import (
 	"ArquicturaSW/model"
 	userClient "ArquicturaSW/clients/user"
 	productClient "ArquicturaSW/clients/product"
-	
-
-	data "ArquicturaSW/db/data"
+	categoryClient "ArquicturaSW/clients/category"
+	orderClient "ArquicturaSW/clients/order"
+	orderDetailClient "ArquicturaSW/clients/order_detail"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -20,9 +20,8 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "carrito"
+	DBName := "nico"
 	DBUser := "root"
-	//DBPass := ""
 	DBPass := "1234"
 	DBHost := "127.0.0.1"
 	// ------------------------
@@ -41,12 +40,14 @@ func init() {
 	// We need to add all CLients that we build
 	userClient.Db = db
 	productClient.Db = db
+	categoryClient.Db = db
+	orderClient.Db = db
+	orderDetailClient.Db = db
 	
 }
 
 func StartDbEngine() {
 	// We need to migrate all classes model.
-	db.AutoMigrate(&model.User{}, &model.Product{}, &model.Category{})
+	db.AutoMigrate(&model.User{}, &model.Product{}, &model.Category{}, &model.Order{}, &model.OrderDetail{})
 	log.Info("Finishing Migration Database Tables")
-	data.InsertData(db)
 }

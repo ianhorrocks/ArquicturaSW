@@ -2,7 +2,7 @@ package userController
 
 import (
 	"ArquicturaSW/dto"
-	service "ArquicturaSW/services/user"
+	service "ArquicturaSW/services"
 	"net/http"
 	"strconv"
 

@@ -1,11 +1,13 @@
 package dto
 
+import "time"
+
 type OrderDto struct {
-	Id              uint    `json:"id"`
-	UserId          uint    `json:"user_id"`
-	AddressId       uint    `json:"address_id"`
-	Amount          float64 `json:"amount"`
-	OrderDetailsDto `json:"order_details"`
+	Id           int             `json:"id_order"`
+	IdUsuario    int             `json:"id_user"`
+	MontoFinal   float32         `json:"monto_final"`
+	Fecha        time.Time       `json:"fecha"`
+	OrdersDetail OrderDetailsDto `json:"OrdersDetalle"`
 }
 
 type OrdersDto []OrderDto

@@ -1,12 +1,13 @@
 package dto
 
 type OrderDetailDto struct {
-	Id        uint    `json:"id"`
-	OrderId   uint    `json:"order_id"`
-	ProductId uint    `json:"product_id"`
-	Nombre	  string  `json:"nombre"`
-	Price     float64 `json:"price"`
-	Quantity  int     `json:"quantity"`
+	Id             int     `json:"id"`
+	IdOrder        int     `json:"id_order"`
+	IdProducto     int     `json:"id_product"`
+	Nombre         string  `json:"nombre"`
+	PrecioUnitario float32 `json:"precio_unitario"`
+	Cantidad       float32 `json:"cantidad"`
+	Total          float32 `json:"total"`
 }
 
 type OrderDetailsDto []OrderDetailDto

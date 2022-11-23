@@ -35,16 +35,15 @@ func (s *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 	var user model.User = userCliente.GetUserById(id) // crea una var user pidiendole los datos a la bd
 	var userDto dto.UserDto                           //Lo que tengo que devolver
 
-	if user.UserID == 0 {
+	if user.Id == 0 {
 		return userDto, e.NewBadRequestApiError("user not found")
 	}
-	userDto.Id = user.UserID
+	userDto.Id = user.Id
 	userDto.Name = user.Name
 	userDto.LastName = user.LastName
 	userDto.UserName = user.UserName
 	userDto.Password = user.Password
 	userDto.Address = user.Address
-	userDto.Email = user.Email
 
 	return userDto, nil
 }
@@ -58,7 +57,7 @@ func (s *userService) LoginUser(loginDto dto.LoginDto) (dto.TokenDto, e.ApiError
 
 	var tokenDto dto.TokenDto
 
-	if user.UserID == 0 {
+	if user.Id == 0 {
 		return tokenDto, e.NewBadRequestApiError("user not found")
 	}
 
@@ -67,11 +66,11 @@ func (s *userService) LoginUser(loginDto dto.LoginDto) (dto.TokenDto, e.ApiError
 
 	if pswMd5String == user.Password {
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"id_user": user.UserID,
+			"id_user": user.Id,
 		})
 		tokenString, _ := token.SignedString(jwtKey)
 		tokenDto.Token = tokenString //asigna la llave a los tokendto del usuario en particular
-		tokenDto.IdUser = user.UserID
+		tokenDto.IdUser = user.Id
 
 		return tokenDto, nil
 	} else {
