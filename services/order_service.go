@@ -7,6 +7,7 @@ import (
 	"ArquicturaSW/dto"
 	"ArquicturaSW/model"
 	e "ArquicturaSW/utils/errors"
+	log "github.com/sirupsen/logrus"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -29,7 +30,7 @@ func init() {
 
 func (s *orderService) InsertOrder(orderDto dto.OrderDto) (dto.OrderDto, e.ApiError) {
 	var order model.Order
-
+	
 	order.Fecha = time.Now()
 
 	order.IdUser = orderDto.IdUsuario
@@ -43,14 +44,14 @@ func (s *orderService) InsertOrder(orderDto dto.OrderDto) (dto.OrderDto, e.ApiEr
 	for _, orderDetailDto := range orderDto.OrdersDetail {
 		var orderDetail model.OrderDetail //
 
-		orderDetail.ProductID = orderDetailDto.Id
+		orderDetail.ProductID = orderDetailDto.IdProducto
 
 		var product model.Product = productCliente.GetProductById(orderDetail.ProductID)
 		orderDetail.Nombre = product.Name
 		orderDetail.PrecioUnitario = product.Price
 
 		orderDetail.Cantidad = orderDetailDto.Cantidad
-		orderDetail.Total = orderDetailDto.Total
+		orderDetail.Total = orderDetail.PrecioUnitario * orderDetail.Cantidad
 
 		montofinal += orderDetail.Total
 
@@ -59,7 +60,10 @@ func (s *orderService) InsertOrder(orderDto dto.OrderDto) (dto.OrderDto, e.ApiEr
 		ordersDetail = append(ordersDetail, orderDetail)
 	}
 
+	log.Debug("MONTO FINALLLL", montofinal)
 	order.MontoFinal = orderCliente.UpdateMonto(montofinal, order.Id)
+
+	log.Debug("Y ACAAA???", order.MontoFinal)
 
 	ordersDetail = orderDetailCliente.InsertOrdersDetail(ordersDetail)
 
@@ -67,8 +71,11 @@ func (s *orderService) InsertOrder(orderDto dto.OrderDto) (dto.OrderDto, e.ApiEr
 
 	orderResponseDto.Fecha = order.Fecha
 	orderResponseDto.Id = order.Id
-	orderResponseDto.MontoFinal = order.MontoFinal
 	orderResponseDto.IdUsuario = order.IdUser
+	orderResponseDto.MontoFinal = order.MontoFinal
+
+	log.Debug("order responde monto final",orderResponseDto.MontoFinal)
+	
 
 	for _, orderDetail := range ordersDetail {
 		var orderDetailDto dto.OrderDetailDto

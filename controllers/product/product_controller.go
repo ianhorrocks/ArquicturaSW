@@ -37,11 +37,11 @@ func GetProducts(c *gin.Context) {
 }
 
 func GetProductsByText(c *gin.Context) {
-	var text string = c.Param("texto")
-	log.Debug("texto: ", text)
+	var texto string = c.Param("texto")
+	log.Debug("texto: ", texto)
 	var productsDto dto.ProductsDto
 
-	productsDto, err := service.ProductService.GetProductsByText(text)
+	productsDto, err := service.ProductService.GetProductsByText(texto)
 
 	if err != nil {
 		c.JSON(err.Status(), err)
@@ -51,12 +51,26 @@ func GetProductsByText(c *gin.Context) {
 }
 
 func GetProductsByCategory(c *gin.Context) {
-	log.Debug("Product id to load: " + c.Param("categoryId"))
+	log.Debug("Products categories id to load: " + c.Param("idCategory"))
 
-	IdCategory, _ := strconv.Atoi(c.Param("IdCategory"))
+	idCategory, _ := strconv.Atoi(c.Param("idCategory"))
 	var productsDto dto.ProductsDto
 
-	productsDto, err := service.ProductService.GetProductsByCategory(IdCategory)
+	productsDto, err := service.ProductService.GetProductsByCategory(idCategory)
+
+	if err != nil {
+		c.JSON(err.Status(), err)
+		return
+	}
+	c.JSON(http.StatusOK, productsDto)
+}
+
+
+func GetProductsByNumber(c *gin.Context) {
+	cantidad, _ := strconv.Atoi(c.Param("cantidad"))
+	var productsDto dto.ProductsDto
+
+	productsDto, err := service.ProductService.GetProductsByNumber(cantidad)
 
 	if err != nil {
 		c.JSON(err.Status(), err)

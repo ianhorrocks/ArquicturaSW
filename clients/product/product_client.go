@@ -27,20 +27,30 @@ func GetProducts() model.Products {
 	return products
 }
 
-func GetProductsByText(text string) model.Products {
+func GetProductsByText(texto string) model.Products {
 	var products model.Products
 
-	Db.Where("name LIKE ?", "%"+text+"%").Find(&products)
+	Db.Where("description LIKE ? OR name LIKE ?", "%"+texto+"%", "%"+texto+"%").Find(&products)
 	log.Debug("Products: ", products)
 
 	return products
 }
 
-func GetProductsByCategory(categoryId int) model.Products {
+func GetProductsByCategory(idCategory int) model.Products {
 	var products model.Products
 
-	Db.Where("id_category = ?", categoryId).Find(&products)
+	Db.Where("id_category = ?", idCategory).Find(&products)
 	log.Debug("Products: ", products)
 
 	return products
+}
+
+func GetProductsByNumber(cantidad int) model.Products {
+	var products model.Products
+	Db.Order("RAND()").Limit(cantidad).Find(&products)
+
+	log.Debug("Products: ", products)
+
+	return products
+
 }

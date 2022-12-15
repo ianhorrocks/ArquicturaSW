@@ -12,8 +12,9 @@ type productService struct{}
 type productServiceInterface interface { //nombre del metodo, que .. todo lo que va a devolver mi servicio es en DTO (ej: product)
 	GetProductById(id int) (dto.ProductDto, e.ApiError)
 	GetProducts() (dto.ProductsDto, e.ApiError)
-	GetProductsByText(text string ) (dto.ProductsDto, e.ApiError)
+	GetProductsByText(texto string ) (dto.ProductsDto, e.ApiError)
 	GetProductsByCategory(categoryId int) (dto.ProductsDto, e.ApiError)
+	GetProductsByNumber(cantidad int) (dto.ProductsDto, e.ApiError)
 	//get random products
 }
 
@@ -74,8 +75,8 @@ func (s *productService) GetProducts() (dto.ProductsDto, e.ApiError) {
 
 // Search product by text filter
 
-func (s *productService) GetProductsByText(text string) (dto.ProductsDto, e.ApiError) {
-	var products model.Products = productCliente.GetProductsByText(text)
+func (s *productService) GetProductsByText(texto string) (dto.ProductsDto, e.ApiError) {
+	var products model.Products = productCliente.GetProductsByText(texto)
 	var productsDto dto.ProductsDto
 
 	if len(products) == 0 {
@@ -98,15 +99,38 @@ func (s *productService) GetProductsByText(text string) (dto.ProductsDto, e.ApiE
 }
 
 // Search product by category filter
-func (s *productService) GetProductsByCategory(categoryId int) (dto.ProductsDto, e.ApiError) {
+func (s *productService) GetProductsByCategory(idCategory int) (dto.ProductsDto, e.ApiError) {
 
-	var products model.Products = productCliente.GetProductsByCategory(categoryId)
+	var products model.Products = productCliente.GetProductsByCategory(idCategory)
 	var productsDto dto.ProductsDto
 	
 	if len(products) == 0 {
 		return productsDto, e.NewBadRequestApiError("products not found")
 	}
 	
+	for _, product := range products {
+		var productDto dto.ProductDto
+		productDto.Id = product.Id
+		productDto.Name = product.Name
+		productDto.Description = product.Description
+		productDto.Picture = product.Picture
+		productDto.Price = product.Price
+		productDto.Stock = product.Stock
+		productDto.IdCategory = product.IdCategory
+
+		productsDto = append(productsDto, productDto)
+	}
+	return productsDto, nil
+}
+
+// Display random products by cantidad
+
+func (s *productService) GetProductsByNumber(cantidad int) (dto.ProductsDto, e.ApiError) {
+	var products model.Products = productCliente.GetProductsByNumber(cantidad)
+	var productsDto dto.ProductsDto
+	if len(products) == 0 {
+		return productsDto, e.NewBadRequestApiError("products not found")
+	}
 	for _, product := range products {
 		var productDto dto.ProductDto
 		productDto.Id = product.Id

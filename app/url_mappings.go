@@ -19,12 +19,13 @@ func mapUrls() {
 	// Products
 	router.GET("/product/:id", productController.GetProductById)
 	router.GET("/product", productController.GetProducts)
+	router.GET("/productRandom/:cantidad", productController.GetProductsByNumber)
 
 	// Search product by text
-	router.GET("/productText/:text", productController.GetProductsByText)
+	router.GET("/productText/:texto", productController.GetProductsByText)
 
 	// Products by category
-	router.GET("/productCategory/idCategory", productController.GetProductsByCategory)
+	router.GET("/productCategory/:idCategory", productController.GetProductsByCategory)
 
 	// Categories
 	router.GET("/category", categoryController.GetCategories)

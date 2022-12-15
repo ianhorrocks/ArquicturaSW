@@ -15,6 +15,8 @@ func OrderInsert(c *gin.Context) {
 	var orderDto dto.OrderDto
 	err := c.BindJSON(&orderDto)
 
+	log.Debug("POSTING ORDER", orderDto)
+
 	if err != nil {
 		log.Error(err.Error())
 		c.JSON(http.StatusBadRequest, err.Error())

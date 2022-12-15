@@ -23,9 +23,9 @@ func InsertOrder(order model.Order) model.Order {
 func GetOrdersByUser(idUser int) model.Orders {
 	var orders model.Orders
 
-	log.Debug("idUser: ", idUser)
+	log.Debug("Getting idUser: ", idUser)
 	Db.Where("id_user = ?", idUser).Find(&orders)
-	log.Debug("orders: ", orders)
+	log.Debug("And orders: ", orders)
 
 	return orders
 }
@@ -33,10 +33,12 @@ func GetOrdersByUser(idUser int) model.Orders {
 // falta update monto final
 
 func UpdateMonto(monto float32, idOrder int) float32 {
-	result := Db.Model(&model.Order{}). Where("id = ?", idOrder).Update("monto_final")
+	result := Db.Model(&model.Order{}). Where("id = ?", idOrder).Update("monto_final", monto)
+
+	log.Debug("ESTE ES EL MONTO DEL UPDATE", monto)
 	
 	if result.Error != nil{
-		log.Error("Order not found")
+		log.Error("Order no encontrada")
 	}
 	return monto
 }

@@ -20,7 +20,7 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "nico"
+	DBName := "prueba"
 	DBUser := "root"
 	DBPass := "1234"
 	DBHost := "127.0.0.1"

@@ -29,7 +29,7 @@ func InsertOrderDetail(orderDetail model.OrderDetail) model.OrderDetail {
 func GetOrderDetailByIdOrder(idOrder int) model.OrderDetails {
 	var ordersDetail model.OrderDetails
 
-	Db.Where("id_order = ?", idOrder).Find(&ordersDetail) // Fijarse si el id_order = ? corresponde al que esta en el dto o el modelo
+	Db.Where("order_id = ?", idOrder).Find(&ordersDetail) // Fijarse si el id_order = ? corresponde al que esta en el dto o el modelo
 	log.Debug("OrderDetail: ", ordersDetail)
 
 	return ordersDetail
@@ -38,6 +38,8 @@ func GetOrderDetailByIdOrder(idOrder int) model.OrderDetails {
 func InsertOrdersDetail(ordersDetail model.OrderDetails) model.OrderDetails {
 
 	for _, orderDetail := range ordersDetail {
+
+		log.Debug("ORDER DETAIL TO INSERT: ", orderDetail)
 
 		result := Db.Create(&orderDetail)
 
